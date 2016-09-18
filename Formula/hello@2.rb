@@ -1,4 +1,4 @@
-class Hello < Formula
+class HelloAT2 < Formula
   desc "Program providing model for GNU coding standards and practices"
   homepage "https://www.gnu.org/software/hello/"
   url "https://ftpmirror.gnu.org/hello/hello-2.10.tar.gz"
