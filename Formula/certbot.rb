@@ -156,7 +156,15 @@ class Certbot < Formula
   end
 
   def install
-    venv = virtualenv_install_with_resources
+    venv = virtualenv_create(libexec)
+    venv.pip_install resources.reject { |r| r.name == "python-augeas" }
+    resource("python-augeas").stage do
+      inreplace "augeas/ffi.py",
+                "ffi.dlopen(\"augeas\")",
+                "ffi.dlopen(\"#{Formula["augeas"].opt_lib}/libaugeas.dylib\")"
+      venv.pip_install "."
+    end
+    venv.pip_install_and_link buildpath
 
     # Shipped with certbot, not external resources.
     %w[acme certbot-apache certbot-nginx].each do |r|
