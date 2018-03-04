@@ -26,6 +26,7 @@ class MozGitTools < Formula
     bin_array = Dir.glob("git*").push("hg-patch-to-git-patch")
     bin_array.delete("git-root")
     bin_array.delete("git-bz-moz") # a directory, not an executable
+    bin_array.delete("git-bz") # symlink to executable in the above
     bin_array.each { |e| bin.install e }
   end
 
