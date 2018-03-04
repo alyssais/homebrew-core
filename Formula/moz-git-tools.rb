@@ -15,6 +15,13 @@ class MozGitTools < Formula
   end
 
   def install
+    needs_python2 = %w[
+      git-patch-to-hg-patch
+      git-remote-link
+      hg-patch-to-git-patch
+    ]
+    inreplace needs_python2, %r{\A#!/usr/bin/env python2$}, "#!/usr/bin/env python2.7"
+
     # Install all the executables, except git-root since that conflicts with git-extras
     bin_array = Dir.glob("git*").push("hg-patch-to-git-patch")
     bin_array.delete("git-root")
